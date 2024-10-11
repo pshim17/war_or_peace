@@ -41,10 +41,18 @@ class Turn
         if type == :basic
             @spoils_of_war << player1.deck.cards[0]
             player1.deck.cards.delete_at(0)
-            "added player1 card"
+
             @spoils_of_war << player2.deck.cards[0]
             player2.deck.cards.delete_at(0)
-            "added player2 card"
+        elsif type == :war
+            @spoils_of_war.concat(player1.deck.cards[0..2])
+            player1.deck.cards.shift(3)
+
+            @spoils_of_war.concat(player2.deck.cards[0..2])
+            player2.deck.cards.shift(3)
+
+        elsif type == :mutually_assured_destruction
+            puts "hello"
         end
     end
 
