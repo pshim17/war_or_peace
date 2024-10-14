@@ -12,10 +12,10 @@ class Turn
     def type 
        if player1.deck.cards[0].rank != player2.deck.cards[0].rank
             return :basic
+       elsif (player1.deck.cards[0].rank == player2.deck.cards[0].rank) && (player1.deck.cards[2].rank == player2.deck.cards[2].rank)
+            return :mutually_assured_destruction     
        elsif player1.deck.cards[0].rank == player2.deck.cards[0].rank
             return :war
-       elsif (player1.deck.cards[0].rank == player2.deck.cards[0].rank) && (player1.deck.cards[2].rank == player2.deck.cards[2].rank)
-            return :mutually_assured_destruction
        end
     end
 
@@ -52,7 +52,8 @@ class Turn
             player2.deck.cards.shift(3)
 
         elsif type == :mutually_assured_destruction
-            puts "hello"
+            player1.deck.cards.shift(3)
+            player2.deck.cards.shift(3)
         end
     end
 
