@@ -1,29 +1,26 @@
-class Start
-    def start
-        p "Welcome to War! (or Peace)" 
-        p "This game will be played with 52 cards."
-        p "The players today are Megan and Aurora."
-        prompt_user
-    end
+require './lib/card'
+require './lib/deck'
+require './lib/player'
+require './lib/turn'
+require './lib/game'
+require 'pry'
 
-    def prompt_user
-        p "Type 'GO' to start the game!"
-        p "------------------------------------------------------------------"
-        user_input = gets.chomp
+##create 52 cards
+suits = ["Hearts", "Diamonds", "Clubs", "Spades"] 
+values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+card_deck = []
 
-        if user_input == 'GO'
-            p "Game is starting"
-            #play_game
-        else
-            p "Invalid input! Please type 'GO' to start the game!"
-            prompt_user
-        end
-    end
-
-    def play_game
-        
-    end
+suits.each do |suit|
+    values.each.with_index do |value, index|
+        card_deck << Card.new(suit, value, ranks[index])
+    end 
 end
 
-game = Start.new
+#put those cards into two decks
+shuffled_card_deck = card_deck.shuffle
+
+#binding.pry
+game = Game.new(shuffled_card_deck)
 game.start
+
