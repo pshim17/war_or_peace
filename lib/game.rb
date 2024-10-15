@@ -8,8 +8,8 @@ require 'pry'
 class Game
     def initialize(shuffled_card_deck)
         @cards = shuffled_card_deck
-        @deck1 = Deck.new(@cards[0..26])
-        @deck2 = Deck.new(@cards[26..52])
+        @deck1 = Deck.new(@cards[0..25])
+        @deck2 = Deck.new(@cards[26..51])
         @player1 = Player.new("Megan", @deck1)
         @player2 = Player.new("Aurora", @deck2)
         @turn = Turn.new(@player1, @player2)
@@ -37,29 +37,40 @@ class Game
 
     def play_game
         count = 0
-        until @player1.has_lost? || @player2.has_lost? || count == 1000000
+
+        until count == 1000000
+        # until count == 500
             @turn.pile_cards
             count += 1
+
+            #p "Player 1 has #{@player1.deck.cards.count} cards left"
+            #p "Player 2 has #{@player2.deck.cards.count} cards left"
+
+            if @player1.has_lost?
+                p "*~*~*~* #{@player2.name} has won the game! *~*~*~*"
+                break
+            elsif @player2.has_lost?
+                p "*~*~*~* #{@player1.name} has won the game! *~*~*~*"  
+                break
+            end
+
             if @turn.type == :basic
                 @turn.award_spoils(@turn.winner)
-                puts "Turn #{count}: #{@turn.winner.name} won 2 cards"
+                p "Turn #{count}: #{@turn.winner.name} won 2 cards"
             elsif @turn.type == :war
                 @turn.award_spoils(@turn.winner)
-                puts "Turn #{count}: WAR - #{@turn.winner.name} won 6 cards"
+                p "Turn #{count}: WAR - #{@turn.winner.name} won 6 cards"
             elsif @turn.type == :mutually_assured_destruction
-                puts "Turn #{count}: *mutually assured destruction* 6 cards removed from play"
+                p "Turn #{count}: *mutually assured destruction* 6 cards removed from play"
             end
-            game_winner(count)
+            draw(count)
         end 
     end
 
-    def game_winner(count)
-        if @player1.has_lost? == true
-            puts "*~*~*~* #{@player2.name} has won the game! *~*~*~*"
-        elsif @player2.has_lost? == true
-            puts "*~*~*~* #{@player1.name} has won the game! *~*~*~*"  
-        elsif count == 1000000
-            puts "---- DRAW ----"
+    def draw(count)
+        if count == 1000000
+        # if count == 500
+            p "---- DRAW ----"
         end
     end
 end

@@ -17,7 +17,6 @@ suits.each do |suit|
     end 
 end
 
-#put those cards into two decks
 shuffled_card_deck = card_deck.shuffle
 
 #binding.pry
