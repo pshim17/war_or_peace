@@ -3,23 +3,16 @@ require './lib/deck'
 require './lib/player'
 require './lib/turn'
 require './lib/game'
+require './lib/card_generator'
 require 'pry'
 
-##create 52 cards
-suits = ["Hearts", "Diamonds", "Clubs", "Spades"] 
-values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-card_deck = []
+filename = "./cards.txt"
 
-suits.each do |suit|
-    values.each.with_index do |value, index|
-        card_deck << Card.new(suit, value, ranks[index])
-    end 
-end
-
-shuffled_card_deck = card_deck.shuffle
+card_generator = CardGenerator.new(filename)
+cards = card_generator.cards.shuffle 
 
 #binding.pry
-game = Game.new(shuffled_card_deck)
+
+game = Game.new(cards)
 game.start
 

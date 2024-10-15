@@ -65,6 +65,5 @@ class Turn
             card = @spoils_of_war.shift
             winner.deck.cards << card
         end
-        @spoils_of_war.clear
     end
 end

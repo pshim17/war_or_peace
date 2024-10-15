@@ -1,3 +1,5 @@
+require './lib/card_generator'
+
 class Card
     attr_reader :suit, 
                 :value, 

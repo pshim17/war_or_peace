@@ -38,8 +38,8 @@ class Game
     def play_game
         count = 0
 
-        until count == 1000000
-        # until count == 500
+        # until count == 1000000
+        until count == 500
             @turn.pile_cards
             count += 1
 
@@ -68,8 +68,8 @@ class Game
     end
 
     def draw(count)
-        if count == 1000000
-        # if count == 500
+        # if count == 1000000
+        if count == 500
             p "---- DRAW ----"
         end
     end
